@@ -1,3 +1,6 @@
 streamlit
 transformers
 torch
+fastapi
+uvicorn[standard]
+requests

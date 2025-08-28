@@ -1,7 +1,7 @@
 import torch
 from transformers import pipeline
 
-generator = pipeline('text-generation', model='distilgpt2')
+generator = pipeline('text-generation', model='gpt2-medium')
 
 def generate_comment(text, tone):
     """
@@ -14,10 +14,11 @@ def generate_comment(text, tone):
     Returns:
         list: A list of generated comments.
     """
-    prompt = f"Generate a {tone} comment for the following post: {text}"
+    prompt = f"Here is a social media post: \"{text}\"\n\nA great {tone} comment about it is:"
     response = generator(
         prompt,
         max_length=50,
         num_return_sequences=3
     )
-    return [res['generated_text'] for res in response]
+    # Clean the generated text by removing the prompt from the beginning
+    return [res['generated_text'][len(prompt):].strip() for res in response]
