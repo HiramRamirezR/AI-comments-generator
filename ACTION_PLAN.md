@@ -6,7 +6,9 @@ We have a working proof-of-concept with a Streamlit interface. The core comment 
 
 ## Current Position
 
-We are at the **architectural refactoring** stage. The goal is to separate the application into a backend API (for portfolio purposes) and a frontend UI that consumes it.
+We are in the middle of the **architectural refactoring** stage. The dependencies have been updated (`fastapi`, `uvicorn`, `requests`) and the FastAPI backend (`src/api.py`) has been created. 
+
+The immediate next step is to modify the Streamlit frontend (`src/main.py`) to consume our new API.
 
 ## Next Steps
 

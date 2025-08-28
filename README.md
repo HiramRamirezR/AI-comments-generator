@@ -1,12 +1,19 @@
 # Automatic Social Media Comment Generator
 
-This project is a simple web application that uses a pre-trained language model to generate engaging comments for social media posts.
+This project uses a pre-trained language model to generate engaging comments for social media posts, served via a modern API.
+
+## Architecture
+
+This project follows a decoupled frontend-backend architecture:
+
+-   **Backend API:** A robust backend built with **FastAPI** that exposes an endpoint for comment generation. It handles the interaction with the AI model.
+-   **Frontend UI:** A simple and intuitive interface built with **Streamlit** that consumes the backend API to provide a user-friendly experience.
 
 ## Features
 
--   Generates automatic comments with "engagement" (open questions, support, humor, etc.).
--   Allows you to choose the tone of the comment (e.g., professional, casual, motivational).
--   Simple and intuitive interface built with Streamlit.
+-   Generates multiple automatic comment options based on a post's text.
+-   Allows the user to choose the desired tone (e.g., professional, casual, motivational).
+-   Clear separation between the AI logic (API) and the user interface.
 
 ## Installation
 
@@ -21,17 +28,25 @@ This project is a simple web application that uses a pre-trained language model 
 
 ## Usage
 
-1.  Run the Streamlit application:
+This application requires running two services in separate terminals.
+
+1.  **Run the Backend API:**
+    Open a terminal and run the Uvicorn server:
+    ```bash
+    uvicorn src.api:app --reload
+    ```
+    The API will be available at `http://127.0.0.1:8000`.
+
+2.  **Run the Frontend Application:**
+    Open a second terminal and run the Streamlit application:
     ```bash
     streamlit run src/main.py
     ```
-2.  Enter the text of the social media post.
-3.  Select the desired tone for the comment.
-4.  Click the "Generate Comment" button.
-5.  The generated comment will be displayed on the screen.
+    You can now open your browser and interact with the UI, which will communicate with your local API.
 
 ## Built With
 
+-   [FastAPI](https://fastapi.tiangolo.com/)
 -   [Streamlit](https://streamlit.io/)
 -   [Hugging Face Transformers](https://huggingface.co/transformers/)
 -   [PyTorch](https://pytorch.org/)
