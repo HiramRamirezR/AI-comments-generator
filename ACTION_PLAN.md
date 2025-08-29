@@ -1,33 +1,35 @@
 # Project Action Plan: Automatic Social Media Comment Generator
 
+## Mentor Role
+
+**Objective:** The AI assistant (Gemini) will act as a mentor. Instead of writing code directly, it will provide step-by-step explanations, guidance, and code examples to help the user learn and implement the features themselves.
+
 ## Project Status
 
-We have a working proof-of-concept with a Streamlit interface. The core comment generation logic is functional and has been improved by upgrading the model to `gpt2-medium` and refining the prompt engineering. The project is ready to be restructured into a more robust architecture featuring a separate backend API and frontend application.
+The architectural refactoring is complete. The application now consists of a separate FastAPI backend that serves the language model and a Streamlit frontend that consumes the API. The end-to-end functionality has been tested and verified locally.
 
 ## Current Position
 
-We are in the middle of the **architectural refactoring** stage. The dependencies have been updated (`fastapi`, `uvicorn`, `requests`) and the FastAPI backend (`src/api.py`) has been created. 
+We have successfully completed the separation of the frontend and backend. The next logical step is to begin the **Refinement** phase, focusing on improving the user experience and the quality of the generated comments.
 
-The immediate next step is to modify the Streamlit frontend (`src/main.py`) to consume our new API.
+## Completed Steps
+
+- **Architectural Refactoring**: 
+  - Separated the application into a FastAPI backend and a Streamlit frontend.
+  - The frontend now communicates with the backend via HTTP requests.
+  - Successfully tested the full client-server communication locally.
 
 ## Next Steps
 
-1.  **Architectural Refactoring: API and Frontend Separation**
-    *   **Goal:** Create a dedicated FastAPI backend to serve the comment generation model, and have the Streamlit UI consume this new API.
-    *   **Update Dependencies:** Add `fastapi`, `uvicorn`, and `requests` to `requirements.txt`.
-    *   **Create API Backend:** Build a new `src/api.py` file using FastAPI to expose a `/generate-comment` endpoint.
-    *   **Modify Frontend:** Update `src/main.py` to make HTTP requests to the new local API instead of calling the Python function directly.
-    *   **Testing:** Run both the API server and the Streamlit app simultaneously to test the end-to-end functionality.
-
-2.  **Refinement:**
+1.  **Refinement:**
     *   Refine the UI/UX based on the testing feedback.
     *   Continue to improve the prompt engineering in `src/generator.py` for better results.
 
-3.  **Deployment to Hugging Face Spaces:**
+2.  **Deployment to Hugging Face Spaces:**
     *   Create a new Space on Hugging Face.
     *   Configure the Space to run both the FastAPI backend and the Streamlit frontend.
     *   Deploy the application to make it publicly accessible.
 
-4.  **Final Documentation:**
+3.  **Final Documentation:**
     *   Update the `README.md` with a link to the live application and instructions on how to use the API.
     *   Add any additional documentation or notes.
