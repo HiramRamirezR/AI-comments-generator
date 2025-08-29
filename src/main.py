@@ -1,6 +1,7 @@
+import requests
 import streamlit as st
-from generator import generate_comment
 from utils import get_available_tones
+
 
 # Set the page title
 st.title("Automatic Social Media Comment Generator")
@@ -21,10 +22,38 @@ if generate_button:
     else:
         # Show a spinner while generating the comments
         with st.spinner("Generating comments..."):
-            # Generate the comments
-            comments = generate_comment(post_text, tone)
+            # Set the URL for the local API
+            api_url = "http://127.0.0.1:8000/generate-comment"
 
-            # Display the comments
-            st.success("Here are some comment options:")
-            for i, comment in enumerate(comments):
-                st.write(f"{i+1}. {comment}")
+            # Data to send to the API
+            payload = {
+                "text": post_text,
+                "tone": tone
+            }
+
+            try:
+                # Send a POST request to the API
+                response = requests.post(api_url, json=payload)
+
+                # If the API answer with a 200 code
+                if response.status_code == 200:
+                    comment_data = response.json()
+                    comments_list = comment_data.get("comments")
+
+                    if comments_list:
+                        generated_comment = comments_list[0]
+                    else:
+                        generated_comment = "No comments generated."
+
+
+                    # Show result
+                    st.success("Generated Comment:")
+                    st.write(generated_comment)
+
+                else:
+                    # Shows an error in case of API failure
+                    st.error(f"Error from API: {response.status_code} - {response.text}")
+
+            except requests.exceptions.RequestException as e:
+                # Shows an error if you cannot connect to the API
+                st.error(f"Error connecting to the API: {e}")
